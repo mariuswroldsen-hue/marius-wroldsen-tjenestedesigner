@@ -11,6 +11,7 @@ interface Props {
 const { title, description, image } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const imageUrl = image && new URL(image.src, Astro.site);
+const base = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 ---
 
 <!doctype html>
@@ -18,7 +19,7 @@ const imageUrl = image && new URL(image.src, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/gif" href="/favicon.gif" />
+    <link rel="icon" type="image/gif" href={`${base}favicon.gif`} />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -27,7 +28,7 @@ const imageUrl = image && new URL(image.src, Astro.site);
     <meta property="og:url" content={canonical} />
     {imageUrl && <meta property="og:image" content={imageUrl} />}
     {imageUrl && <meta name="twitter:card" content="summary_large_image" />}
-    <link rel="alternate" type="application/rss+xml" href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" href={`${base}rss.xml`} />
   </head>
   <body class="bg-teal">
     <main class="container py-4 shadow border mt-4">
@@ -38,7 +39,7 @@ const imageUrl = image && new URL(image.src, Astro.site);
       <div class="flex justify-between gap-2 px-2">
         <span>&copy; {new Date().getFullYear()}</span>
 
-        <a href="/rss.xml" class="flex items-center gap-2 text-white">
+        <a href={`${base}rss.xml`} class="flex items-center gap-2 text-white">
           RSS
           <Image src={rss} alt="RSS-feed" height={20} />
         </a>

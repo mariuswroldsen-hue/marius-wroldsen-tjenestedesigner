@@ -14,6 +14,8 @@ if (!SITE_URL) throw new Error('SITE_URL is required (see .env.example)');
 // https://astro.build/config
 export default defineConfig({
   site: SITE_URL,
+  // GitHub Pages serves the site under /<repo>/, so take the base path from SITE_URL
+  base: new URL(SITE_URL).pathname,
   // few breakpoints keep the variant count low, since markdown images get candidates up to their intrinsic size
   image: {
     layout: 'constrained',
